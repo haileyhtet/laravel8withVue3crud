@@ -11,14 +11,27 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->search){
-           return Product::where('name','like','%' . $request->search .'%')
-           ->orderBy('id','desc')->paginate(5);
-        }
-        else{
-            return Product::orderBy('id','desc')->paginate(5);
+        // if(request('search')){
+        //    return Product::where('name','like','%' . $request->search .'%')
+        //    ->orderBy('id','desc')->paginate(5);
+        // }
+        // else{
+        //     return Product::orderBy('id','desc')->paginate(5);
 
-        }
+        // }
+        // $products = Product::query();
+        // if(request('search')){
+        //     return $products->where('name','like','%' . $request->search .'%')
+        //     ->orderBy('id','desc')->paginate(5);
+        //  
+        //  else{
+        //      return $products->orderBy('id','desc')->paginate(5);
+ 
+        //  }
+         return Product::when(request('search'),function($query){
+        $query->where('name','like','%' . request('search') .'%');
+         })->orderBy('id','desc')->paginate(5);
+
     }
     public function store(ProductStoreRequest $request)
     {
