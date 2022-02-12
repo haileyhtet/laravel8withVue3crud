@@ -13,6 +13,7 @@
     <body>
         <div id="app">
             <product-component></product-component>
+            {{-- <progress-bar></progress-bar> --}}
         </div>
 
         <script src="{{asset('/js/app.js')}}"></script>
